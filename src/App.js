@@ -1,7 +1,8 @@
-import React from 'react';
-import { Routes, Route } from "react-router-dom";
-import Login from './components/Login/Login';
 import { Container } from '@mui/material';
+import React from 'react';
+import { Route, Routes } from "react-router-dom";
+import Login from './components/Login/Login';
+import ReviewerHomePage from './components/Reviewer/ReviewerHomePage';
 
 export const App = (props) => {
     return (
@@ -10,6 +11,7 @@ export const App = (props) => {
             {/* <Login /> */}
             <Routes>
                 <Route path='/' element={<Login/>}/>
+                <Route path='/reviewer/' element={<ReviewerHomePage/>}/>
             </Routes>
         </Container>
     );
