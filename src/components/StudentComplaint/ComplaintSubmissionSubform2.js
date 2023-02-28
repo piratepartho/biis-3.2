@@ -7,6 +7,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import MultipleSelectChip from './MultipleSelectChip';
 
 
 
@@ -54,6 +55,9 @@ export default function ComplaintSubmissionSubform2() {
         </Select>
         </FormControl>
 
+        </Grid>
+        <Grid>
+          <MultipleSelectChip/>
         </Grid>
         
       </Grid>

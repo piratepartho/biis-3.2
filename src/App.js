@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Routes } from "react-router-dom";
 import Login from './components/Login/Login';
 import ReviewerHomePage from './components/Reviewer/ReviewerHomePage';
+import ComplaintTicketSearch from './components/StudentComplaint/ComplaintTicketSearch';
 import StudentComplaintHomePage from './components/StudentComplaint/StudentComplaintHomePage';
 
 export const App = (props) => {
@@ -14,6 +15,8 @@ export const App = (props) => {
                 <Route path='/' element={<Login/>}/>
                 <Route path='/reviewer/' element={<ReviewerHomePage/>}/>
                 <Route path='/student/' element={<StudentComplaintHomePage/>}/>
+                <Route path='/student/search' element={<ComplaintTicketSearch/>}/>
+
                 {/* <Route path='/student/checkout' element={<Checkout/>}/> */}
             </Routes>
         </Container>
