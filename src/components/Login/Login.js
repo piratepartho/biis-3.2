@@ -15,8 +15,6 @@ const theme = createTheme();
 
 const API = "http://localhost:5000";
 
-
-
 const Login = (props) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -24,71 +22,26 @@ const Login = (props) => {
 
   const usernameChangeHandler = (event) => {
     setUserName(event.target.value);
-    // console.log(username);
   };
 
   const passwordChangeHandler = (event) => {
     setPassword(event.target.value);
   };
-  async function postLoginResponse(username, password) {
-    const response = await fetch(`${API}/login`, {
-      method: "POST",
-      mode: 'cors',
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      }
-    });
-
-    if(!response.ok){
-        // console.log(response.status);
-        console.log('here');
-        throw new Error("error");
-        return false;
-    }
-
-    const data = await response.json();
-    console.log(data);
-    return true;
-    
-  }
 
   const loginHandler = async (e) => {
     e.preventDefault();
 
-    // try{
-    //     postLoginResponse(username, password);
-    //     // console.log("logged in");
-    //     navigate("/student");
-    // }
-    // catch{
-    //     // console.log("failed");
-    //     navigate("/reviewer");
-    // }
-    
-    
-    
-
-    fetch(`${API}/login`, {
-      method: "POST",
-      body: JSON.stringify({
+    axios
+      .post("http://localhost:5000/login", {
         username,
         password,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.message === "login successful") {
-          navigate("/student");
-        }
       })
-      .catch((err) => console.log("Error: " + err));
+      .then((response) => {
+        navigate("/student")
+      })
+      .catch((error) => {
+        alert("Login Failure");
+      });
   };
 
   return (
