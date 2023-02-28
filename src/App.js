@@ -14,6 +14,7 @@ export const App = (props) => {
                 <Route path='/' element={<Login/>}/>
                 <Route path='/reviewer/' element={<ReviewerHomePage/>}/>
                 <Route path='/student/' element={<StudentComplaintHomePage/>}/>
+                {/* <Route path='/student/checkout' element={<Checkout/>}/> */}
             </Routes>
         </Container>
     );
