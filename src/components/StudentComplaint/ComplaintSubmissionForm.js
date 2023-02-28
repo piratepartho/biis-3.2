@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import ComplaintSubmissionSubform1 from './ComplaintSubmissionSubform1';
 import ComplaintSubmissionSubform2 from './ComplaintSubmissionSubform2';
-import Review from './ComplaintSubmissionSubform3';
+import ComplaintSubmissionSubform3 from './ComplaintSubmissionSubform3';
 
 function Copyright() {
   return (
@@ -36,7 +36,7 @@ function getStepContent(step) {
     case 1:
       return <ComplaintSubmissionSubform2 />;
     case 2:
-      return <Review />;
+      return <ComplaintSubmissionSubform3 />;
     default:
       throw new Error('Unknown step');
   }
