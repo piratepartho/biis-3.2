@@ -12,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import ComplaintSubmissionForm from './ComplaintSubmission';
+import ComplaintSubmissionForm from './ComplaintSubmissionForm';
 
 const drawerWidth = 240;
 
