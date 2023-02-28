@@ -96,25 +96,6 @@ const ComplaintSubmissionForm = () => {
               <MenuItem value={22}>Twenty one and a half</MenuItem>
             </Select>
           </FormControl>
-
-          {/* <FormControl sx={{ m: 1, width: 150 }} size="small">
-          <InputLabel id="demo-simple-select-autowidth-label">Tag</InputLabel>
-          <Select
-            labelId="demo-simple-select-autowidth-label"
-            id="demo-simple-select-autowidth"
-            value={tag}
-            onChange={handleChange}
-        
-            label="Tag"
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Twenty</MenuItem>
-            <MenuItem value={21}>Twenty one</MenuItem>
-            <MenuItem value={22}>Twenty one and a half</MenuItem>
-          </Select>
-        </FormControl> */}
         </div>
 
         <div>
