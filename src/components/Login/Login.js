@@ -10,7 +10,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
+const cookies = new Cookies();
 const theme = createTheme();
 
 const API = "http://localhost:5000";
@@ -37,6 +39,10 @@ const Login = (props) => {
         password,
       })
       .then((response) => {
+        cookies.set("TOKEN", response.data.access_token, {
+          path:"/",
+        });
+        console.log(response.data);
         navigate("/student")
       })
       .catch((error) => {
