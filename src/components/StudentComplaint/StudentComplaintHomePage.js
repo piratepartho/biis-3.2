@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import MySidebar from '../Sidebar/MySidebar';
-import ComplaintSubmissionForm from './ComplaintSubmission';
+import ComplaintSubmissionForm from './ComplaintSubmissionForm';
 
 // const drawerWidth = 240;
 const sidebarElements = ['Search', 'File a Complaint'];
