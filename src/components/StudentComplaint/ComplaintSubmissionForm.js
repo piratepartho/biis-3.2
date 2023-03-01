@@ -221,12 +221,12 @@ export default function ComplaintSubmissionForm() {
           </Grid>
           <Box sx={{ height: 20 }} />
           <Grid>
-            {location !== "" && (
+            {location !== "" && subject !== "" && body !== "" && (
               <Button variant="contained" onClick={submitHandler}>
                 Submit
               </Button>
             )}
-            {location === "" && <Button variant="disabled">Submit</Button>}
+            {(location === "" || subject === "" || body === "") && <Button variant="disabled">Submit</Button>}
           </Grid>
         </Paper>
       </Container>
