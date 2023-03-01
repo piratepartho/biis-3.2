@@ -1,131 +1,149 @@
-import { AppBar, Toolbar } from '@mui/material';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Stepper from '@mui/material/Stepper';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import * as React from 'react';
-import MySidebar from '../Sidebar/MySidebar';
-import ComplaintSubmissionSubform1 from './ComplaintSubmissionSubform1';
-import ComplaintSubmissionSubform2 from './ComplaintSubmissionSubform2';
-import ComplaintSubmissionSubform3 from './ComplaintSubmissionSubform3';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const steps = ['Add Subject', 'Add Details', 'Review your complaint'];
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <ComplaintSubmissionSubform1 />;
-    case 1:
-      return <ComplaintSubmissionSubform2 />;
-    case 2:
-      return <ComplaintSubmissionSubform3 />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+import { AppBar, FormControlLabel } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Paper from "@mui/material/Paper";
+import Select from "@mui/material/Select";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import MultipleSelectChip from "./MultipleSelectChip";
+import MySidebar from "../Sidebar/MySidebar";
+import { Toolbar } from "@mui/material";
+import { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
 const theme = createTheme();
+const cookies = new Cookies();
 
 export default function ComplaintSubmissionForm() {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [locList, setLocList] = useState([]);
+  const [location, setLocation] = useState("");
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
+
+  useEffect(() => {
+    axios
+      .get(`https://biis-backend.onrender.com/student/complaint/locations`, {
+        headers: {
+          Authorization: `Bearer ${cookies.get("TOKEN")}`,
+        },
+      })
+      .then((response) => {
+        setLocList(response.data.map((location) => location.location_name));
+        // console.log(locationList);
+      })
+      .catch((error) => {
+        alert("location fetch failure, please reload");
+      });
+  }, []);
+
+
+  const handleChange = (event) => {
+    // setAge(event.target.value);
+    setLocation(event.target.value);
+    console.log(event.target.value);
   };
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <AppBar
-        position="absolute"
-        color="default"
-        elevation={0}
-        sx={{
-          position: 'relative',
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
+      <AppBar
+        position="fixed"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
             BIIS Complaint Management System
           </Typography>
         </Toolbar>
       </AppBar>
-      <MySidebar />
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-          <Typography component="h1" variant="h4" align="center">
-            Submit a complaint
-          </Typography>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          {activeStep === steps.length ? (
-            <React.Fragment>
-              <Typography variant="h5" gutterBottom>
-                Your complaint has been submitted successfully
-              </Typography>
-              <Typography variant="subtitle1">
-                Thank you for your concern. We are Looking into it. Your ticket number is #2001539.
-              </Typography>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              {getStepContent(activeStep)}
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                {activeStep !== 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                    Back
-                  </Button>
-                )}
 
-                <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{ mt: 3, ml: 1 }}
-                >
-                  {activeStep === steps.length - 1 ? 'Confirm' : 'Next'}
-                </Button>
-              </Box>
-            </React.Fragment>
-          )}
+      <MySidebar />
+
+      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+        <Paper
+          variant="outlined"
+          sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+        >
+          <Typography component="h1" variant="h4" align="center">
+            File a complaint
+          </Typography>
+          {/* <Grid container spacing={3}> */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="subject"
+              name="subject"
+              label="subject"
+              fullWidth
+              // autoComplete="shipping address-line1"
+              variant="standard"
+            />
+          </Grid>
+
+          {/* </Grid> */}
+          <Box sx={{ height: 20 }} />
+          {/* <Grid container spacing={3}> */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="body"
+              label="Details of your complaint"
+              fullWidth
+              autoComplete="Details of your complaint"
+              variant="standard"
+              multiline
+              rows={4}
+            />
+          </Grid>
+          <Box sx={{ height: 20 }} />
+          <Grid>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="demo-simple-select-standard-label">
+                {location === "" ? "Location" : location}
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                onChange={handleChange}
+                label="Location"
+                value={location}
+              >
+                {locList.map((location) => {
+                  return <MenuItem value={location} key={location} >{location}</MenuItem>
+                })};
+              </Select>
+            </FormControl>
+          </Grid>
+          <Box sx={{ height: 20 }} />
+          {/* <Grid>
+            <MultipleSelectChip />
+          </Grid> */}
+          <Box sx={{ height: 20 }} />
+          {/* </Grid> */}
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={
+                <Checkbox color="secondary" name="saveAddress" value="yes" />
+              }
+              label="Proceed as anonymous"
+            />
+          </Grid>
+          <Box sx={{ height: 20 }} />
+          <Grid>
+            {location !== "" && <Button variant="contained">Submit</Button>}
+            {location === "" && <Button variant="disabled">Submit</Button>}
+          </Grid>
         </Paper>
-        <Copyright />
       </Container>
     </ThemeProvider>
   );
