@@ -35,7 +35,7 @@ export default function ComplaintSubmissionForm() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/student/complaint/locations`, {
+      .get(`https://biis-backend.onrender.com/student/complaint/locations`, {
         headers: {
           Authorization: `Bearer ${cookies.get("TOKEN")}`,
         },
@@ -83,7 +83,7 @@ export default function ComplaintSubmissionForm() {
 
     axios
       .post(
-        `http://localhost:5000/student/complaint`,
+        `https://biis-backend.onrender.com/student/complaint`,
         {
           params: {
             subject: subject,
