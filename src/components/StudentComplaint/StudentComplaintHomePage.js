@@ -12,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import ComplaintTicketSearch from './ComplaintTicketSearch';
+import ComplaintSubmissionForm from './ComplaintSubmissionForm';
 
 const drawerWidth = 240;
 
@@ -93,8 +93,8 @@ export default function StudentComplaintHomePage() {
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography> */}
-        {/* <ComplaintSubmissionForm /> */}
-        <ComplaintTicketSearch/>
+        <ComplaintSubmissionForm />
+        {/* <ComplaintTicketSearch/> */}
       </Box>
     </Box>
   );
