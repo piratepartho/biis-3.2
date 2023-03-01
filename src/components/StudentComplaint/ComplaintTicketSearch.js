@@ -45,7 +45,7 @@ export default function ComplaintTicketSearch() {
     e.preventDefault();
 
     axios
-      .get(`http://localhost:5000/student/complaint/${ticketVal}`, {
+      .get(`https://biis-backend.onrender.com/student/complaint/${ticketVal}`, {
         headers: {
           Authorization: `Bearer ${cookies.get("TOKEN")}`,
         },

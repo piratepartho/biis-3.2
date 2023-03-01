@@ -27,6 +27,11 @@ const cookies = new Cookies();
 export default function ComplaintSubmissionForm() {
   const [locList, setLocList] = useState([]);
   const [location, setLocation] = useState("");
+  const [anonymity, setAnonymity] = useState(false);
+  const [locationId, setLocationId] = useState([]);
+
+  const [subject, setSubject] = useState("");
+  const [body, setBody] = useState("");
 
 
   useEffect(() => {
@@ -38,7 +43,8 @@ export default function ComplaintSubmissionForm() {
       })
       .then((response) => {
         setLocList(response.data.map((location) => location.location_name));
-        // console.log(locationList);
+        setLocationId(...locationId, response.data.map((location) => location));
+        console.log(locList);
       })
       .catch((error) => {
         alert("location fetch failure, please reload");
@@ -49,8 +55,54 @@ export default function ComplaintSubmissionForm() {
   const handleChange = (event) => {
     // setAge(event.target.value);
     setLocation(event.target.value);
-    console.log(event.target.value);
   };
+
+  const anonymityChangeHandler = () => {
+    setAnonymity(!anonymity);
+  }
+
+  const subjectChangeHandler = (event) => {
+    setSubject(event.target.value);
+  }
+
+  const bodyChangeHandler = (event) => {
+    setBody(event.target.value);
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(subject,body,location,anonymity);
+    
+    console.log(locationId);
+    const id = (locationId.find(locationArr => locationArr.location_name === location)._id);
+    console.log(id);
+
+    axios
+      .post(`https://biis-backend.onrender.com/student/complaint`, {
+        subject: subject,
+        complaint_body: body,
+        location: {
+          _id: id,
+          location_name: location,
+        },
+        tags: [{
+          _id: "63f9f8fb0cfe50339f9ab44a",
+          tag_name: "Food Quality"
+        }],
+        headers: {
+          Authorization: `Bearer ${cookies.get("TOKEN")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        alert("submitted\n");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("submission invalid");
+      });
+
+  }
 
 
   return (
@@ -87,6 +139,7 @@ export default function ComplaintSubmissionForm() {
               fullWidth
               // autoComplete="shipping address-line1"
               variant="standard"
+              onChange={subjectChangeHandler}
             />
           </Grid>
 
@@ -103,6 +156,7 @@ export default function ComplaintSubmissionForm() {
               variant="standard"
               multiline
               rows={4}
+              onChange={bodyChangeHandler}
             />
           </Grid>
           <Box sx={{ height: 20 }} />
@@ -133,14 +187,14 @@ export default function ComplaintSubmissionForm() {
           <Grid item xs={12}>
             <FormControlLabel
               control={
-                <Checkbox color="secondary" name="saveAddress" value="yes" />
+                <Checkbox color="secondary" name="anonymity" value="yes" onChange={anonymityChangeHandler} />
               }
               label="Proceed as anonymous"
             />
           </Grid>
           <Box sx={{ height: 20 }} />
           <Grid>
-            {location !== "" && <Button variant="contained">Submit</Button>}
+            {location !== "" && <Button variant="contained" onClick={submitHandler}>Submit</Button>}
             {location === "" && <Button variant="disabled">Submit</Button>}
           </Grid>
         </Paper>
