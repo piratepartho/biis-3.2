@@ -1,3 +1,4 @@
+import { AppBar, Toolbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -10,6 +11,7 @@ import Stepper from '@mui/material/Stepper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import MySidebar from '../Sidebar/MySidebar';
 import ComplaintSubmissionSubform1 from './ComplaintSubmissionSubform1';
 import ComplaintSubmissionSubform2 from './ComplaintSubmissionSubform2';
 import ComplaintSubmissionSubform3 from './ComplaintSubmissionSubform3';
@@ -73,6 +75,14 @@ export default function ComplaintSubmissionForm() {
           </Typography>
         </Toolbar>
       </AppBar> */}
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            BIIS Complaint Management System
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <MySidebar />
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">

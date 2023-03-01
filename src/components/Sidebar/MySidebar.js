@@ -12,13 +12,21 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 
 import * as React from 'react';
+import { useNavigate } from 'react-router';
 
 
 const drawerWidth = 240;
 
 //put elements in an array and pass it as a prop(elements)
 
+
 const MySidebar = (props) => {
+  const elements=['Search', 'File A Complaint'];
+  const urls = ["/student/search", "/student/submit"];
+  const navigate = useNavigate();
+  const itemSelectHandler = (event) => {
+    console.log(event)
+  }
   return (
     <Drawer
         variant="permanent"
@@ -31,8 +39,8 @@ const MySidebar = (props) => {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            {props.elements.map((text, index) => (
-              <ListItem key={text} disablePadding>
+            {elements.map((text, index) => (
+              <ListItem key={index} disablePadding onClick={() => navigate(urls[index])}>
                 <ListItemButton>
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
