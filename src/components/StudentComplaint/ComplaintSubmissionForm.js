@@ -33,24 +33,25 @@ export default function ComplaintSubmissionForm() {
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
 
-
   useEffect(() => {
     axios
-      .get(`https://biis-backend.onrender.com/student/complaint/locations`, {
+      .get(`http://localhost:5000/student/complaint/locations`, {
         headers: {
           Authorization: `Bearer ${cookies.get("TOKEN")}`,
         },
       })
       .then((response) => {
         setLocList(response.data.map((location) => location.location_name));
-        setLocationId(...locationId, response.data.map((location) => location));
+        setLocationId(
+          ...locationId,
+          response.data.map((location) => location)
+        );
         console.log(locList);
       })
       .catch((error) => {
         alert("location fetch failure, please reload");
       });
   }, []);
-
 
   const handleChange = (event) => {
     // setAge(event.target.value);
@@ -59,51 +60,67 @@ export default function ComplaintSubmissionForm() {
 
   const anonymityChangeHandler = () => {
     setAnonymity(!anonymity);
-  }
+  };
 
   const subjectChangeHandler = (event) => {
     setSubject(event.target.value);
-  }
+  };
 
   const bodyChangeHandler = (event) => {
     setBody(event.target.value);
-  }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(subject,body,location,anonymity);
-    
+    console.log(subject, body, location, anonymity);
+
     console.log(locationId);
-    const id = (locationId.find(locationArr => locationArr.location_name === location)._id);
+    const id = locationId.find(
+      (locationArr) => locationArr.location_name === location
+    )._id;
     console.log(id);
+    console.log(cookies.get("TOKEN"));
 
     axios
-      .post(`https://biis-backend.onrender.com/student/complaint`, {
-        subject: subject,
-        complaint_body: body,
-        location: {
-          _id: id,
-          location_name: location,
+      .post(
+        `http://localhost:5000/student/complaint`,
+        {
+          params: {
+            subject: subject,
+            complaint_body: body,
+            location: {
+              _id: id,
+              location_name: location,
+            },
+            tags: [
+              {
+                _id: "63f9f8fb0cfe50339f9ab44a",
+                tag_name: "Food Quality",
+              },
+            ],
+            anonymity: anonymity,
+          },
         },
-        tags: [{
-          _id: "63f9f8fb0cfe50339f9ab44a",
-          tag_name: "Food Quality"
-        }],
-        headers: {
-          Authorization: `Bearer ${cookies.get("TOKEN")}`,
-        },
-      })
+        {
+          headers: {
+            authorization: `Bearer ${cookies.get("TOKEN")}`,
+          },
+        }
+      )
       .then((response) => {
         console.log(response);
-        alert("submitted\n");
+        alert("Submitted, Your Token: "+response.data.data.complaint_token);
       })
       .catch((error) => {
         console.log(error);
         alert("submission invalid");
       });
 
-  }
-
+      setSubject('');
+      setBody('');
+      setLocation('');
+      setAnonymity(false);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -173,8 +190,13 @@ export default function ComplaintSubmissionForm() {
                 value={location}
               >
                 {locList.map((location) => {
-                  return <MenuItem value={location} key={location} >{location}</MenuItem>
-                })};
+                  return (
+                    <MenuItem value={location} key={location}>
+                      {location}
+                    </MenuItem>
+                  );
+                })}
+                ;
               </Select>
             </FormControl>
           </Grid>
@@ -187,14 +209,23 @@ export default function ComplaintSubmissionForm() {
           <Grid item xs={12}>
             <FormControlLabel
               control={
-                <Checkbox color="secondary" name="anonymity" value="yes" onChange={anonymityChangeHandler} />
+                <Checkbox
+                  color="secondary"
+                  name="anonymity"
+                  value="yes"
+                  onChange={anonymityChangeHandler}
+                />
               }
               label="Proceed as anonymous"
             />
           </Grid>
           <Box sx={{ height: 20 }} />
           <Grid>
-            {location !== "" && <Button variant="contained" onClick={submitHandler}>Submit</Button>}
+            {location !== "" && (
+              <Button variant="contained" onClick={submitHandler}>
+                Submit
+              </Button>
+            )}
             {location === "" && <Button variant="disabled">Submit</Button>}
           </Grid>
         </Paper>

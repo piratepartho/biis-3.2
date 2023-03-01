@@ -18,8 +18,6 @@ export const App = (props) => {
                 <Route path='/student' element={<StudentSearchComplaint/>}/>
                 <Route path='/student/search' element={<StudentSearchComplaint/>}/>
                 <Route path='/student/submit' element={<ComplaintSubmissionForm/>}/>
-
-                {/* <Route path='/student/checkout' element={<Checkout/>}/> */}
             </Routes>
         </Container>
     );
