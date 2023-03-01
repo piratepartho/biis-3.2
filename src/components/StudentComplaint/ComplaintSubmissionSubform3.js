@@ -33,21 +33,21 @@ const payments = [
   { name: 'Expiry date', detail: '04/2024' },
 ];
 
-export default function ComplaintSubmissionSubform3() {
+export default function ComplaintSubmissionSubform3(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Subject
       </Typography>
-      <Typography variant="body1" gutterBottom>kisu ekta subject</Typography>
+      <Typography variant="body1" gutterBottom>{props.complaint.subject}</Typography>
       <Typography variant="h6" gutterBottom>
         Details
       </Typography>
-      <Typography variant="body1" gutterBottom>sakib bhai amare rag dise ;-;</Typography>
+      <Typography variant="body1" gutterBottom>{props.complaint.body}</Typography>
       <Typography variant="h6" gutterBottom>
         Location
       </Typography>
-      <Typography variant="body1" gutterBottom>Sher e Bangla Hall</Typography>
+      <Typography variant="body1" gutterBottom>{props.complaint.location}</Typography>
       
     </React.Fragment>
   );

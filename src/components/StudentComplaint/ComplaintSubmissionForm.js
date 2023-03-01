@@ -9,7 +9,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import React from 'react'
 import ComplaintSubmissionSubform1 from './ComplaintSubmissionSubform1';
 import ComplaintSubmissionSubform2 from './ComplaintSubmissionSubform2';
 import ComplaintSubmissionSubform3 from './ComplaintSubmissionSubform3';
@@ -29,18 +29,7 @@ function Copyright() {
 
 const steps = ['Add Subject', 'Add Details', 'Review your complaint'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <ComplaintSubmissionSubform1 />;
-    case 1:
-      return <ComplaintSubmissionSubform2 />;
-    case 2:
-      return <ComplaintSubmissionSubform3 />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+
 
 const theme = createTheme();
 
@@ -55,24 +44,40 @@ export default function ComplaintSubmissionForm() {
     setActiveStep(activeStep - 1);
   };
 
+  const [newComplaint, setNewComplaint] = React.useState({
+    subject : '',
+    body : '',
+    location : '',
+    anonymity : false,
+  });
+
+  const onChangeHandler = (event) => {
+    setNewComplaint({...newComplaint, [event.target.name]: event.target.value});
+    console.log(newComplaint);
+  }
+
+  const anonymityChangeHandler = (value) => {
+    setNewComplaint({...newComplaint, anonymity: value});
+    console.log(newComplaint);
+  }
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <ComplaintSubmissionSubform1 onChangeHandler={onChangeHandler} anonymityChangeHandler = {anonymityChangeHandler} />;
+      case 1:
+        return <ComplaintSubmissionSubform2 onChangeHandler={onChangeHandler} />;
+      case 2:
+        return <ComplaintSubmissionSubform3 complaint={newComplaint} />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <AppBar
-        position="absolute"
-        color="default"
-        elevation={0}
-        sx={{
-          position: 'relative',
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
-      >
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
@@ -115,7 +120,6 @@ export default function ComplaintSubmissionForm() {
             </React.Fragment>
           )}
         </Paper>
-        <Copyright />
       </Container>
     </ThemeProvider>
   );
