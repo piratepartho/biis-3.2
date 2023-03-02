@@ -1,13 +1,13 @@
 {
-  "main.css": "/piratepartho/biis-3.2/static/css/main.e9985336.chunk.css",
-  "main.js": "/piratepartho/biis-3.2/static/js/main.23dd27a8.chunk.js",
-  "main.js.map": "/piratepartho/biis-3.2/static/js/main.23dd27a8.chunk.js.map",
-  "runtime~main.js": "/piratepartho/biis-3.2/static/js/runtime~main.29cb5717.js",
-  "runtime~main.js.map": "/piratepartho/biis-3.2/static/js/runtime~main.29cb5717.js.map",
-  "static/js/2.ed27a92d.chunk.js": "/piratepartho/biis-3.2/static/js/2.ed27a92d.chunk.js",
-  "static/js/2.ed27a92d.chunk.js.map": "/piratepartho/biis-3.2/static/js/2.ed27a92d.chunk.js.map",
-  "index.html": "/piratepartho/biis-3.2/index.html",
-  "precache-manifest.c1bdcb0bb553982bedcdfd3944434b01.js": "/piratepartho/biis-3.2/precache-manifest.c1bdcb0bb553982bedcdfd3944434b01.js",
-  "service-worker.js": "/piratepartho/biis-3.2/service-worker.js",
-  "static/css/main.e9985336.chunk.css.map": "/piratepartho/biis-3.2/static/css/main.e9985336.chunk.css.map"
+  "main.css": "/biis-3.2/static/css/main.e9985336.chunk.css",
+  "main.js": "/biis-3.2/static/js/main.23dd27a8.chunk.js",
+  "main.js.map": "/biis-3.2/static/js/main.23dd27a8.chunk.js.map",
+  "runtime~main.js": "/biis-3.2/static/js/runtime~main.55beea06.js",
+  "runtime~main.js.map": "/biis-3.2/static/js/runtime~main.55beea06.js.map",
+  "static/js/2.ed27a92d.chunk.js": "/biis-3.2/static/js/2.ed27a92d.chunk.js",
+  "static/js/2.ed27a92d.chunk.js.map": "/biis-3.2/static/js/2.ed27a92d.chunk.js.map",
+  "index.html": "/biis-3.2/index.html",
+  "precache-manifest.e6bd69dc6505fa0b63f1c81f9320aa33.js": "/biis-3.2/precache-manifest.e6bd69dc6505fa0b63f1c81f9320aa33.js",
+  "service-worker.js": "/biis-3.2/service-worker.js",
+  "static/css/main.e9985336.chunk.css.map": "/biis-3.2/static/css/main.e9985336.chunk.css.map"
 }

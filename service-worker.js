@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/piratepartho/biis-3.2/precache-manifest.c1bdcb0bb553982bedcdfd3944434b01.js"
+  "/biis-3.2/precache-manifest.e6bd69dc6505fa0b63f1c81f9320aa33.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/piratepartho/biis-3.2/index.html", {
+workbox.routing.registerNavigationRoute("/biis-3.2/index.html", {
   
   blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });
