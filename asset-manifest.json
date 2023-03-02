@@ -1,13 +1,13 @@
 {
-  "main.css": "/piratepartho/biis-frontend.git/static/css/main.384341d3.chunk.css",
-  "main.js": "/piratepartho/biis-frontend.git/static/js/main.55418520.chunk.js",
-  "main.js.map": "/piratepartho/biis-frontend.git/static/js/main.55418520.chunk.js.map",
-  "static/js/1.5f96f199.chunk.js": "/piratepartho/biis-frontend.git/static/js/1.5f96f199.chunk.js",
-  "static/js/1.5f96f199.chunk.js.map": "/piratepartho/biis-frontend.git/static/js/1.5f96f199.chunk.js.map",
-  "runtime~main.js": "/piratepartho/biis-frontend.git/static/js/runtime~main.0f1b60e2.js",
-  "runtime~main.js.map": "/piratepartho/biis-frontend.git/static/js/runtime~main.0f1b60e2.js.map",
-  "static/css/main.384341d3.chunk.css.map": "/piratepartho/biis-frontend.git/static/css/main.384341d3.chunk.css.map",
-  "index.html": "/piratepartho/biis-frontend.git/index.html",
-  "precache-manifest.3cf93f19e47188ba288d259b284d99d9.js": "/piratepartho/biis-frontend.git/precache-manifest.3cf93f19e47188ba288d259b284d99d9.js",
-  "service-worker.js": "/piratepartho/biis-frontend.git/service-worker.js"
+  "main.css": "/piratepartho/biis-3.2/static/css/main.e9985336.chunk.css",
+  "main.js": "/piratepartho/biis-3.2/static/js/main.23dd27a8.chunk.js",
+  "main.js.map": "/piratepartho/biis-3.2/static/js/main.23dd27a8.chunk.js.map",
+  "runtime~main.js": "/piratepartho/biis-3.2/static/js/runtime~main.29cb5717.js",
+  "runtime~main.js.map": "/piratepartho/biis-3.2/static/js/runtime~main.29cb5717.js.map",
+  "static/js/2.ed27a92d.chunk.js": "/piratepartho/biis-3.2/static/js/2.ed27a92d.chunk.js",
+  "static/js/2.ed27a92d.chunk.js.map": "/piratepartho/biis-3.2/static/js/2.ed27a92d.chunk.js.map",
+  "index.html": "/piratepartho/biis-3.2/index.html",
+  "precache-manifest.c1bdcb0bb553982bedcdfd3944434b01.js": "/piratepartho/biis-3.2/precache-manifest.c1bdcb0bb553982bedcdfd3944434b01.js",
+  "service-worker.js": "/piratepartho/biis-3.2/service-worker.js",
+  "static/css/main.e9985336.chunk.css.map": "/piratepartho/biis-3.2/static/css/main.e9985336.chunk.css.map"
 }
