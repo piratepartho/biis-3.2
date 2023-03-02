@@ -10,8 +10,6 @@ import ComplaintSubmissionForm from './components/StudentComplaint/ComplaintSubm
 export const App = (props) => {
     return (
         <Container>
-            {/* show navbar */}
-            {/* <Login /> */}
             <Routes>
                 <Route path='/' element={<Login/>}/>
                 <Route path='/reviewer' element={<ReviewerHomePage/>}/>

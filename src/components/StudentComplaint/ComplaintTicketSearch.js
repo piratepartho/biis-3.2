@@ -1,7 +1,5 @@
-import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
@@ -13,20 +11,6 @@ import Cookies from "universal-cookie";
 import { useState } from "react";
 
 const cookies = new Cookies();
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
 export default function ComplaintTicketSearch() {
@@ -45,7 +29,7 @@ export default function ComplaintTicketSearch() {
     e.preventDefault();
 
     axios
-      .get(`https://biis-backend.onrender.com/student/complaint/${ticketVal}`, {
+      .get(`${process.env.REACT_APP_API_URL}/student/complaint/${ticketVal}`, {
         headers: {
           Authorization: `Bearer ${cookies.get("TOKEN")}`,
         },

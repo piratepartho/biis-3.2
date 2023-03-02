@@ -1,4 +1,6 @@
-import { AppBar, FormControlLabel } from "@mui/material";
+import React from 'react'
+import { useEffect, useState } from "react";
+import { AppBar, FormControlLabel, Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
@@ -13,18 +15,34 @@ import Select from "@mui/material/Select";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
-import MultipleSelectChip from "./MultipleSelectChip";
 import MySidebar from "../Sidebar/MySidebar";
 import { Toolbar } from "@mui/material";
-import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 const cookies = new Cookies();
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
+
+let modalMessage = "No message to show";
+let redirectTo = "/student";
+
 export default function ComplaintSubmissionForm() {
+  const navigate = useNavigate();
   const [locList, setLocList] = useState([]);
   const [location, setLocation] = useState("");
   const [anonymity, setAnonymity] = useState(false);
@@ -33,9 +51,15 @@ export default function ComplaintSubmissionForm() {
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
 
+  const [showModal, setShowModal] = useState(false);
+
+  const redirectHandler = () => {
+    navigate(redirectTo);
+  };
+
   useEffect(() => {
     axios
-      .get(`https://biis-backend.onrender.com/student/complaint/locations`, {
+      .get(`${process.env.REACT_APP_API_URL}/student/complaint/locations`, {
         headers: {
           Authorization: `Bearer ${cookies.get("TOKEN")}`,
         },
@@ -49,12 +73,13 @@ export default function ComplaintSubmissionForm() {
         console.log(locList);
       })
       .catch((error) => {
-        alert("location fetch failure, please reload");
+        setShowModal(true);
+        modalMessage="Location Fetch Failed. Try Again";
+        redirectTo="/";
       });
   }, []);
 
   const handleChange = (event) => {
-    // setAge(event.target.value);
     setLocation(event.target.value);
   };
 
@@ -83,7 +108,7 @@ export default function ComplaintSubmissionForm() {
 
     axios
       .post(
-        `https://biis-backend.onrender.com/student/complaint`,
+        `${process.env.REACT_APP_API_URL}/student/complaint`,
         {
           params: {
             subject: subject,
@@ -109,17 +134,20 @@ export default function ComplaintSubmissionForm() {
       )
       .then((response) => {
         console.log(response);
-        alert("Submitted, Your Token: "+response.data.data.complaint_token);
+        modalMessage =
+          "Complaint Submitted. Token : " + response.data.data.complaint_token;
+        setShowModal(true);
+        // alert("Submitted, Your Token: " + response.data.data.complaint_token);
       })
       .catch((error) => {
-        console.log(error);
-        alert("submission invalid");
+        setShowModal(true);
+        modalMessage = "Submission Failed.";
       });
 
-      setSubject('');
-      setBody('');
-      setLocation('');
-      setAnonymity(false);
+    setSubject("");
+    setBody("");
+    setLocation("");
+    setAnonymity(false);
   };
 
   return (
@@ -146,7 +174,6 @@ export default function ComplaintSubmissionForm() {
           <Typography component="h1" variant="h4" align="center">
             File a complaint
           </Typography>
-          {/* <Grid container spacing={3}> */}
           <Grid item xs={12}>
             <TextField
               required
@@ -154,15 +181,11 @@ export default function ComplaintSubmissionForm() {
               name="subject"
               label="subject"
               fullWidth
-              // autoComplete="shipping address-line1"
               variant="standard"
               onChange={subjectChangeHandler}
             />
           </Grid>
-
-          {/* </Grid> */}
           <Box sx={{ height: 20 }} />
-          {/* <Grid container spacing={3}> */}
           <Grid item xs={12}>
             <TextField
               required
@@ -201,11 +224,7 @@ export default function ComplaintSubmissionForm() {
             </FormControl>
           </Grid>
           <Box sx={{ height: 20 }} />
-          {/* <Grid>
-            <MultipleSelectChip />
-          </Grid> */}
           <Box sx={{ height: 20 }} />
-          {/* </Grid> */}
           <Grid item xs={12}>
             <FormControlLabel
               control={
@@ -226,9 +245,35 @@ export default function ComplaintSubmissionForm() {
                 Submit
               </Button>
             )}
-            {(location === "" || subject === "" || body === "") && <Button variant="disabled">Submit</Button>}
+            {(location === "" || subject === "" || body === "") && (
+              <Button variant="disabled">Submit</Button>
+            )}
           </Grid>
         </Paper>
+        <Modal open={showModal} onClose={redirectHandler}>
+          <Box
+            m={1}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            sx={style}
+          >
+            <Grid container>
+              <Grid item align="center" sx={{width:"100%"}}>
+                <Typography>
+                  {modalMessage}
+                </Typography>
+              </Grid>
+              <Box width="100%"></Box>
+              <Grid item xs={4}  />
+              <Grid item align="center" sx={{pt:2, width:"100%"}}>
+                <Button onClick={redirectHandler} variant="contained">
+                  Ok
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </Modal>
       </Container>
     </ThemeProvider>
   );

@@ -15,8 +15,6 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 const theme = createTheme();
 
-const API = "https://biis-backend.onrender.com/student/complaint`";
-
 const Login = (props) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +32,7 @@ const Login = (props) => {
     e.preventDefault();
 
     axios
-      .post("https://biis-backend.onrender.com/login", {
+      .post( process.env.REACT_APP_API_URL + "/login", {
         username,
         password,
       })

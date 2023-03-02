@@ -26,7 +26,7 @@ const MySidebar = (props) => {
   const logout = () => {
     cookies.remove("TOKEN", { path: "/" });
     navigate("/");
-  }
+  };
   return (
     <Drawer
       variant="permanent"
@@ -55,9 +55,9 @@ const MySidebar = (props) => {
           ))}
         </List>
       </Box>
-      <Button type="submit" color='warning' onClick={() => logout()}>
+      <Button type="submit" color="warning" onClick={() => logout()}>
         Logout
-      </Button> 
+      </Button>
     </Drawer>
   );
 };
